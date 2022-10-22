@@ -75,8 +75,11 @@ pipeline {
         stage('push image to dockerHub'){
             steps{
                 script{
-                    withCredentials([string(credentialsId: 'docker_hub_cred', variable: 'docker_hub_cred')]) {
-                    sh 'docker login -u nikhiless -p ${docker_hub_cred}'
+                    withCredentials([string(credentialsId: 'docker_creds', variable: 'docker_creds')]) {
+    // some block
+
+                    // withCredentials([string(credentialsId: 'docker_hub_cred', variable: 'docker_hub_cred')]) {
+                    sh 'docker login -u nikhiless -p ${docker_creds}'
                     sh 'docker image push nikhiless/$JOB_NAME:v1.$BUILD_ID'
                     sh 'docker image push nikhiless/$JOB_NAME:latest'
                 }
