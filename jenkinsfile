@@ -72,5 +72,17 @@ pipeline {
                 }
             }
         }
+        stage('push image to dockerHub'){
+            steps{
+                script{
+                    withCredentials([string(credentialsId: 'git_creds', variable: 'docker_hub_cred')]) {
+                    sh 'docker login -u nikhiless -p ${docker_hub_cred}'
+                    sh 'docker image push nikhiless/$JOB_NAME:v1.$BUILD_ID'
+                    sh 'docker image push nikhiless/$JOB_NAME:latest'
+                }
+                    
+                }
+            }
+        }
     }
 }
