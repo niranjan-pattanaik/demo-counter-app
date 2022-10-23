@@ -79,7 +79,7 @@ pipeline {
     // some block
 
                     withCredentials([string(credentialsId: 'git_creds', variable: 'docker_creds')]) {
-                    sh 'docker login -u nikhiless -p nik-docker'
+                    sh 'docker login -u nikhiless -p ${docker_creds}'
                     sh 'docker image push nikhiless/$JOB_NAME:v1.$BUILD_ID'
                     sh 'docker image push nikhiless/$JOB_NAME:latest'
                 }
